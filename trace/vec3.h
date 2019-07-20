@@ -9,8 +9,7 @@
 // with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //==================================================================================================
 
-#ifndef VEC3H
-#define VEC3H
+#pragma once
 
 #include <math.h>
 #include <stdlib.h>
@@ -149,5 +148,3 @@ inline vec3& vec3::operator/=(const float t) {
 inline vec3 unit_vector(vec3 v) {
 	return v / v.length();
 }
-
-#endif

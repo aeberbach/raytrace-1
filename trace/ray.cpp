@@ -1,8 +1,3 @@
-#ifndef RAYH
-#define RAYH
+#pragma once
 
 #include "ray.h"
-
-
-
-#endif
