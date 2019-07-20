@@ -6,11 +6,19 @@
 #include "hitable_list.h"
 #include "camera.h"
 
-vec3 color(const ray& r, hitable* world) {
+vec3 random_in_unit_sphere() {
+	vec3 p;
+	do {
+		p = 2.f * vec3((rand() / (RAND_MAX + 1.f)), (rand() / (RAND_MAX + 1.f)), (rand() / (RAND_MAX + 1.f))) - vec3(1.f, 1.f, 1.f);
+	} while (p.squared_length() >= 1.f);
+	return p;
+}
 
+vec3 color(const ray& r, hitable* world) {
 	hit_record rec;
-	if (world->hit(r, 0.0, FLT_MAX, rec)) {
-		return 0.5f * vec3(rec.normal.x() + 1, rec.normal.y() + 1, rec.normal.z() + 1);
+	if (world->hit(r, 0.001f, FLT_MAX, rec)) {
+		vec3 target = rec.p + rec.normal + random_in_unit_sphere();
+		return 0.5f * color(ray(rec.p, target - rec.p), world);
 	}
 	else {
 		vec3 unit_direction = unit_vector(r.direction());
@@ -42,6 +50,7 @@ int main() {
 				col += color(r, world);
 			}
 			col /= float(ns);
+			col = vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));
 			int ir = int(255.99 * col[0]);
 			int ig = int(255.99 * col[1]);
 			int ib = int(255.99 * col[2]);
