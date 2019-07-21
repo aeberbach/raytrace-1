@@ -6,7 +6,8 @@
 #include "hitable_list.h"
 #include "camera.h"
 #include "material.h"
-
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 vec3 color(const ray& r, hitable* world, int depth) {
 	hit_record rec;
@@ -39,11 +40,14 @@ int main() {
 	list[3] = new sphere(vec3(-1, 0, -1), 0.5f, new dielectric(1.5f));
 	list[4] = new sphere(vec3(-1, 0, -1), -0.45f, new dielectric(1.5f));
 	hitable* world = new hitable_list(list, 5);
-	camera cam;
 
-	std::cerr << "And we're tracing!";
+	camera cam(vec3(-2, 2, 1), vec3(0, 0, -1), vec3(0, 1, 0), 25, float(nx) / float(ny));
+	float R = cos(float(M_PI) / 4.f);
 
 	for (int j = ny - 1; j >= 0; j--) {
+
+		std::cerr << ".";
+
 		for (int i = 0; i < nx; i++) {
 			vec3 col(0, 0, 0);
 			
