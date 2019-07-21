@@ -35,8 +35,8 @@ int main() {
 	hitable* list[4];
 	list[0] = new sphere(vec3(0, 0, -1), 0.5, new lambertian(vec3(0.8f, 0.3f, 0.3f)));
 	list[1] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(vec3(0.8f, 0.8f, 0.0f)));
-	list[2] = new sphere(vec3(1, 0, -1), 0.5, new metal(vec3(0.8f, 0.6f, 0.2f)));
-	list[3] = new sphere(vec3(-1, 0, -1), 0.5, new metal(vec3(0.8f, 0.8f, 0.8f)));
+	list[2] = new sphere(vec3(1, 0, -1), 0.5, new metal(vec3(0.8f, 0.6f, 0.2f), 0.1f));
+	list[3] = new sphere(vec3(-1, 0, -1), 0.5, new metal(vec3(0.8f, 0.8f, 0.8f), 1.f));
 	hitable* world = new hitable_list(list, 4);
 	camera cam;
 
